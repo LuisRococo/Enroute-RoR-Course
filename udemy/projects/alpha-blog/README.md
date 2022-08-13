@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Commands used
+
+* bundle install --without production
+* rails new alpha-blog
+* rails generate migration [name]
+* rails db:migrate
+* rails c

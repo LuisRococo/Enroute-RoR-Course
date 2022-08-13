@@ -1,21 +1,7 @@
-<h1>Article Index</h1>
+<h1 class="text-center mt-4">Article Index</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+<%= render "article"%>
 
-    <tbody>
-      <% @articles.each do |article|%>
-        <tr>
-            <td><%= article.title %></th>
-            <td><%= article.description %></th>
-            <td><button>Hello</button></th>
-        </tr> 
-      <%end%>
-    </tbody>
-</table>
+<p>
+  <%= link_to 'Create new article', new_article_path%>
+</p>
