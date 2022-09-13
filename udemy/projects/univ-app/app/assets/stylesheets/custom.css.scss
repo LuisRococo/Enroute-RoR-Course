@@ -1,0 +1,19 @@
+@import "materialize/components/color-variables";
+$primary-color: color("deep-orange", "darken-1") !default;
+$secondary-color: color("deep-orange", "darken-3") !default;
+
+@import "materialize";
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.sign-up-form {
+    padding-top: 30px;
+}
