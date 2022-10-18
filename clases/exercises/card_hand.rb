@@ -124,12 +124,12 @@ class CardHand
   end
 
   def same_value?(cards, quantity)
-    cards_uniq = cards.uniq
+    values_uniq = cards_to_values_arr(cards).uniq
     counter_array = []
-    cards_uniq.each do |uniq_card|
+    values_uniq.each do |value|
       counter = 0
       cards.each do |card|
-        counter += 1 if uniq_card[:value] == card[:value]
+        counter += 1 if value == card[:value]
       end
       counter_array.push(counter)
     end

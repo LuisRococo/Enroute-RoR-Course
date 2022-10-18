@@ -89,6 +89,7 @@ end
 
 def leading_zero?(number)
   str_number = number.to_s
+  return false if str_number.size.zero?
   str_number[str_number.size - 1] == '0'
 end
 
@@ -140,7 +141,7 @@ puts 'Count args: '
 puts count_args(1,2,3,4), "\n"
 
 puts 'New number: '
-puts new_number?(859), "\n"
+puts new_number?(8590), "\n"
 
 puts 'Custom Substraction: '
 puts custom_substraction(15, 3), "\n"
