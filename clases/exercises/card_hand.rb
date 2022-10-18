@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CardHand
-  @@CARD_ORDER = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
+  @@CARD_ORDER = %w[2 3 4 5 6 7 8 9 J Q K A]
 
   def initialize(cards)
     set_cards(cards)
@@ -9,7 +11,7 @@ class CardHand
     @cards = cards_to_array_hash(cards)
   end
 
-  def poker_combination()
+  def poker_combination
     return 'Royal flush' if royal_flush?(@cards)
     return 'Straight flush' if straight_flush?(@cards)
     return 'Four of a kind' if four_of_a_kind?(@cards)
@@ -31,16 +33,19 @@ class CardHand
 
   def high_card?(cards)
     return false unless hand_completed?(cards)
+
     same_value_by_group?(cards, 1, 5)
   end
 
   def pair?(cards)
     return false unless hand_completed?(cards)
+
     same_value_by_group?(cards, 2, 1)
   end
 
   def two_pair?(cards)
     return false unless hand_completed?(cards)
+
     checks = []
     checks.push(same_value_by_group?(cards, 2, 2))
     checks.push(same_value?(cards, 1))
@@ -50,6 +55,7 @@ class CardHand
 
   def three_of_a_king?(cards)
     return false unless hand_completed?(cards)
+
     checks = []
     checks.push(same_value?(cards, 3))
     checks.push(same_value?(cards, 1))
@@ -59,16 +65,19 @@ class CardHand
 
   def straight?(cards)
     return false unless hand_completed?(cards)
+
     successive_order?(cards)
   end
 
   def flush?(cards)
     return false unless hand_completed?(cards)
+
     same_suit?(cards)
   end
 
   def full_house?(cards)
     return false unless hand_completed?(cards)
+
     checks = []
     checks.push(same_value?(cards, 3))
     checks.push(same_value?(cards, 2))
@@ -78,6 +87,7 @@ class CardHand
 
   def straight_flush?(cards)
     return false unless hand_completed?(cards)
+
     checks = []
     checks.push(same_suit?(cards))
     checks.push(successive_order?(cards))
@@ -87,32 +97,34 @@ class CardHand
 
   def royal_flush?(cards)
     return false unless hand_completed?(cards)
+
     checks = []
-    
-    checks.push (same_suit?(cards))
-    checks.push (cards[0][:value] == 'A')
-    checks.push (cards[1][:value] == 'K')
-    checks.push (cards[2][:value] == 'Q')
-    checks.push (cards[3][:value] == 'J')
-    checks.push (value_ten?(cards[4]))
-  
+
+    checks.push(same_suit?(cards))
+    checks.push(cards[0][:value] == 'A')
+    checks.push(cards[1][:value] == 'K')
+    checks.push(cards[2][:value] == 'Q')
+    checks.push(cards[3][:value] == 'J')
+    checks.push(value_ten?(cards[4]))
+
     checks.all? { |value| value }
   end
 
   def four_of_a_kind?(cards)
     return false unless hand_completed?(cards)
+
     same_value?(cards, 4)
   end
-  
+
   def value_ten?(card)
-    value_of_ten = ['J', 'Q', 'K']
+    value_of_ten = %w[J Q K]
     value_of_ten.any? { |value| card[:value] == value }
   end
-  
+
   def card_to_hash(card)
     { value: card[0], suit: card[1] }
   end
-  
+
   def cards_to_array_hash(cards)
     card_array = []
     cards.each do |card|
@@ -120,9 +132,10 @@ class CardHand
     end
     card_array
   end
-  
+
   def same_suit?(cards)
     return false if cards.size.zero?
+
     suit = cards[0][:suit]
     cards.all? { |card| card[:suit] == suit }
   end
@@ -165,10 +178,12 @@ class CardHand
 
   def successive_order?(cards)
     return false if cards.size.zero?
+
     card_order_index = @@CARD_ORDER.find_index(cards[0][:value])
     card_index = 0
-    while (card_index < cards.size && card_order_index < @@CARD_ORDER.size)
+    while card_index < cards.size && card_order_index < @@CARD_ORDER.size
       return false unless cards[card_index][:value] == @@CARD_ORDER[card_order_index]
+
       card_index += 1
       card_order_index += 1
     end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # https://www.codecademy.com/resources/blog/advanced-ruby-code-challenges/
 
 def number_to_array(number)
   string_array = number.to_s.split('')
-  string_array.map { |element| element.to_i }
+  string_array.map(&:to_i)
 end
 
 # 1. Re-inventing multiplication
@@ -15,8 +17,8 @@ end
 # 2. Calculate a javelin throw
 def max_height_projectile(speed, angle)
   angle_radians = angle * Math::PI / 180
-  calc_piece = speed ** 2
-  calc_piece2 = Math.sin(angle_radians) ** 2.to_f
+  calc_piece = speed**2
+  calc_piece2 = Math.sin(angle_radians)**2.to_f
   calc_piece3 = 2 * 9.81
   calc_piece * calc_piece2 / calc_piece3
 end
@@ -25,7 +27,8 @@ end
 
 def worked_days_in_range(work_days, rng_min, rng_max)
   return 0 if work_days < rng_min
-  work_days_in_range = (rng_max.nil?) ? work_days : [work_days, rng_max].min
+
+  work_days_in_range = rng_max.nil? ? work_days : [work_days, rng_max].min
   work_days_in_range = work_days_in_range - rng_min + 1
   [work_days_in_range, 0].max
 end
@@ -43,12 +46,13 @@ def bonus(work_days)
 
   price = 625
   days_in_range = worked_days_in_range(work_days, 48, nil)
-  bonus += days_in_range * price
+  bonus + days_in_range * price
 end
 
 # 4. Recursively reverse a string
 def reverse_string(string)
-  return '' if string.size == 0
+  return '' if string.size.zero?
+
   first_character = string[0]
   reverse_string(string.slice(1, string.size)) + first_character
 end
@@ -66,9 +70,7 @@ def map_letters_of_string(text)
   text = text.split('')
   result = {}
   text.map do |letter|
-    unless result.key?(letter)
-      result[letter] = find_index_of_letters(text, letter)
-    end
+    result[letter] = find_index_of_letters(text, letter) unless result.key?(letter)
   end
   result
 end
@@ -90,6 +92,7 @@ end
 def leading_zero?(number)
   str_number = number.to_s
   return false if str_number.size.zero?
+
   str_number[str_number.size - 1] == '0'
 end
 
@@ -135,10 +138,10 @@ puts 'Reverse string: '
 puts reverse_string('hello'), "\n"
 
 puts 'Letter index: '
-puts map_letters_of_string("hello"), "\n"
+puts map_letters_of_string('hello'), "\n"
 
 puts 'Count args: '
-puts count_args(1,2,3,4), "\n"
+puts count_args(1, 2, 3, 4), "\n"
 
 puts 'New number: '
 puts new_number?(8590), "\n"
@@ -147,35 +150,35 @@ puts 'Custom Substraction: '
 puts custom_substraction(15, 3), "\n"
 
 puts 'Card combination: '
-cards_royal_flush = [
-  'AH', 'KH', 'QH', 'JH', 'JH'
+cards_royal_flush = %w[
+  AH KH QH JH JH
 ]
-cards_straight_flush = [
-  '7H', '8H', '9H', 'JH', 'QH'
+cards_straight_flush = %w[
+  7H 8H 9H JH QH
 ]
-cards_four_of_a_kind = [
-  '7H', '7D', '7D', '7H', 'QC'
+cards_four_of_a_kind = %w[
+  7H 7D 7D 7H QC
 ]
-cards_full_house = [
-  '7H', '7D', '7D', 'QH', 'QC'
+cards_full_house = %w[
+  7H 7D 7D QH QC
 ]
-cards_flush = [
-  '3H', 'KH', 'JH', 'AH', 'QH'
+cards_flush = %w[
+  3H KH JH AH QH
 ]
-cards_straight = [
-  '3H', '4D', '5H', '6H', '7H'
+cards_straight = %w[
+  3H 4D 5H 6H 7H
 ]
-cards_three_of_a_king = [
-  '3H', '3D', '3H', '6H', '7H'
+cards_three_of_a_king = %w[
+  3H 3D 3H 6H 7H
 ]
-cards_two_pair = [
-  '3H', '3D', '4H', '4H', '7H'
+cards_two_pair = %w[
+  3H 3D 4H 4H 7H
 ]
-card_pairs = [
-  '3H', '3D', '5H', '4H', '7H'
+card_pairs = %w[
+  3H 3D 5H 4H 7H
 ]
-cards_high_card = [
-  '2H', '3D', '5H', '4H', '7H'
+cards_high_card = %w[
+  2H 3D 5H 4H 7H
 ]
 card_hand = CardHand.new(cards_royal_flush)
 puts card_hand.poker_combination
