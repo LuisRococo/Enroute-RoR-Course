@@ -25,18 +25,22 @@ class CardHand
 
   private
 
+  def hand_completed?(cards)
+    cards.size == 5
+  end
+
   def high_card?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     same_value_by_group?(cards, 1, 5)
   end
 
   def pair?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     same_value_by_group?(cards, 2, 1)
   end
 
   def two_pair?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     checks = []
     checks.push(same_value_by_group?(cards, 2, 2))
     checks.push(same_value?(cards, 1))
@@ -45,7 +49,7 @@ class CardHand
   end
 
   def three_of_a_king?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     checks = []
     checks.push(same_value?(cards, 3))
     checks.push(same_value?(cards, 1))
@@ -54,17 +58,17 @@ class CardHand
   end
 
   def straight?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     successive_order?(cards)
   end
 
   def flush?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     same_suit?(cards)
   end
 
   def full_house?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     checks = []
     checks.push(same_value?(cards, 3))
     checks.push(same_value?(cards, 2))
@@ -73,7 +77,7 @@ class CardHand
   end
 
   def straight_flush?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     checks = []
     checks.push(same_suit?(cards))
     checks.push(successive_order?(cards))
@@ -82,7 +86,7 @@ class CardHand
   end
 
   def royal_flush?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     checks = []
     
     checks.push (same_suit?(cards))
@@ -96,7 +100,7 @@ class CardHand
   end
 
   def four_of_a_kind?(cards)
-    return false unless cards.size == 5
+    return false unless hand_completed?(cards)
     same_value?(cards, 4)
   end
   
